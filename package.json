@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbo",
     "dev:normal": "next dev",
-    "build": "cross-env TURBOPACK=0 next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "db:generate": "prisma generate",

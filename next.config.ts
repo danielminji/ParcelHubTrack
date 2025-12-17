@@ -9,9 +9,6 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   
-  // Disable static page generation temporarily
-  output: 'standalone',
-  
   // Optimize for production
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
@@ -23,7 +20,7 @@ const nextConfig: NextConfig = {
   },
   
   webpack(config, { isServer }) {
-    // Handle SVG imports as React components
+    // Handle SVG imports as React components for webpack builds
     const fileLoaderRule = config.module.rules.find((rule: any) =>
       rule.test?.test?.('.svg'),
     );
