@@ -4,38 +4,37 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   
-  // Disable ESLint during builds for now
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  
   // Disable TypeScript errors during builds
   typescript: {
     ignoreBuildErrors: true,
   },
+  
+  // Disable static page generation temporarily
+  output: 'standalone',
   
   // Optimize for production
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
   },
   
-  // Optimize module resolution for both Webpack and Turbopack
+  // Optimize module resolution
   experimental: {
     optimizePackageImports: ['framer-motion', '@react-three/fiber', '@react-three/drei'],
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
-      },
-    },
   },
   
   webpack(config, { isServer }) {
+    // Handle SVG imports as React components
+    const fileLoaderRule = config.module.rules.find((rule: any) =>
+      rule.test?.test?.('.svg'),
+    );
+    
+    if (fileLoaderRule) {
+      fileLoaderRule.exclude = /\.svg$/;
+    }
+    
     config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
+      test: /\.svg$/i,
+      use: ['@svgr/webpack'],
     });
     
     // Optimize build performance

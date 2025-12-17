@@ -9,6 +9,10 @@ const outfit = Outfit({
   subsets: ["latin"],
 });
 
+// Force dynamic rendering to avoid prerender issues with SVG imports in Next.js 16
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+
 export default function RootLayout({
   children,
 }: Readonly<{

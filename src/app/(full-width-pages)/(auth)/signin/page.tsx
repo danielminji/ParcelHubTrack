@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   description: "Sign in to ParcelTrack - Your complete parcel tracking and management solution",
 };
 
+// Force dynamic rendering to avoid prerender issues
+export const dynamic = 'force-dynamic';
+
 export default function SignIn() {
   return <SignInForm />;
 }
